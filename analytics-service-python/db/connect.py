@@ -1,16 +1,15 @@
 # db/connect.py
 # This file sets up the database connection for the analytics service.
-# For Day 3 testing, I'm using SQLite because it works without any setup.
+# I'm using SQLite because it's simple and works without any server setup.
 
 from sqlalchemy import create_engine
 
-# SQLite database file (stored inside the analytics-service-python folder)
+# SQLite database file stored locally inside the Codespace.
 DB_URL = "sqlite:///./analytics.db"
 
-# Creating the engine that FastAPI will use for running SQL queries.
+# Creating the SQLite engine. 
 engine = create_engine(
     DB_URL,
-    echo=True,        # Shows SQL in terminal for debugging
+    echo=True,    # Shows SQL logs in terminal for debugging
     future=True
 )
-
