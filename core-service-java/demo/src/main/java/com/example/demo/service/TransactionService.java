@@ -1,16 +1,16 @@
 package com.example.demo.service;
 
-import com.example.demo.model.Transaction;
-import com.example.demo.repository.TransactionRepository;
-import org.springframework.stereotype.Service;
-
 import java.time.LocalDate;
 import java.time.YearMonth;
 import java.util.List;
 
+import org.springframework.stereotype.Service;
+
+import com.example.demo.model.Transaction;
+import com.example.demo.repository.TransactionRepository;
+
 @Service
 public class TransactionService {
-
     private final TransactionRepository repo;
 
     public TransactionService(TransactionRepository repo) {
@@ -28,7 +28,7 @@ public class TransactionService {
         if (month == null || month.isBlank()) {
             return repo.findByUserId(userId);
         }
-        YearMonth ym = YearMonth.parse(month); // "YYYY-MM"
+        YearMonth ym = YearMonth.parse(month);
         LocalDate start = ym.atDay(1);
         LocalDate end = ym.atEndOfMonth();
         return repo.findByUserIdAndDateBetween(userId, start, end);

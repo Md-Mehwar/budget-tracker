@@ -1,34 +1,40 @@
 package com.example.demo.controller;
 
-import com.example.demo.model.Transaction;
-import com.example.demo.service.TransactionService;
-import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.*;
-
 import java.util.List;
 
-@RestController
-@RequestMapping("/api")
-public class TransactionController {
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.CrossOrigin;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.RestController;
 
+import com.example.demo.model.Transaction;
+import com.example.demo.service.TransactionService;
+
+@RestController
+@RequestMapping("/api/transactions")
+@CrossOrigin(origins = "*")
+public class TransactionController {
     private final TransactionService service;
 
     public TransactionController(TransactionService service) {
         this.service = service;
     }
 
-    @PostMapping("/transactions")
-    public ResponseEntity<Transaction> create(@RequestBody Transaction tx) {
-        Transaction created = service.create(tx);
-        return ResponseEntity.status(201).body(created);
+    @PostMapping
+    public ResponseEntity<?> create(@RequestBody Transaction tx) {
+        Transaction saved = service.create(tx);
+        return ResponseEntity.ok(saved);
     }
 
-    @GetMapping("/transactions")
+    @GetMapping
     public ResponseEntity<List<Transaction>> list(
             @RequestParam Long userId,
-            @RequestParam(required = false) String month
-    ) {
-        List<Transaction> list = service.listForUser(userId, month);
-        return ResponseEntity.ok(list);
+            @RequestParam(required = false) String month) {
+        List<Transaction> transactions = service.listForUser(userId, month);
+        return ResponseEntity.ok(transactions);
     }
 }

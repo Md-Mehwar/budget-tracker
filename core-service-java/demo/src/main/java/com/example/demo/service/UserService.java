@@ -1,14 +1,14 @@
 package com.example.demo.service;
 
-import com.example.demo.model.User;
-import com.example.demo.repository.UserRepository;
+import java.util.Optional;
+
 import org.springframework.stereotype.Service;
 
-import java.util.Optional;
+import com.example.demo.model.User;
+import com.example.demo.repository.UserRepository;
 
 @Service
 public class UserService {
-
     private final UserRepository repo;
 
     public UserService(UserRepository repo) {
@@ -16,7 +16,6 @@ public class UserService {
     }
 
     public User register(User user) {
-        // TODO: add validation later
         return repo.save(user);
     }
 
