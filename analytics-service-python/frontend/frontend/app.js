@@ -1,19 +1,50 @@
 // frontend/app.js
-// Fetches analytics data from FastAPI and logs it for testing.
+// Fetch category data from FastAPI and draw a pie chart.
 
-// 1. Replace this with your actual Codespaces URL:
+// Your FastAPI public URL:
 const BASE_URL = "https://humble-fiesta-7v57pp95595q37x7-8001.app.github.dev";
 
-// 2. Function to fetch category totals from your FastAPI API
+// Fetch data from FastAPI
 async function fetchCategoryTotals() {
     try {
         const response = await fetch(`${BASE_URL}/stats/by-category?month=2025-12&user_id=1`);
         const data = await response.json();
         console.log("Fetched data:", data);
+
+        // Pass data to chart function
+        drawPieChart(data);
+
     } catch (error) {
         console.error("Error fetching data:", error);
     }
 }
 
-// 3. Call the function when the page loads
+// Draw pie chart using Chart.js
+function drawPieChart(data) {
+    const ctx = document.getElementById("categoryChart");
+
+    // Extract labels and values from JSON
+    const labels = data.map(item => item.category);
+    const totals = data.map(item => item.total);
+
+    new Chart(ctx, {
+        type: 'pie',
+        data: {
+            labels: labels,
+            datasets: [{
+                data: totals
+            }]
+        },
+        options: {
+            responsive: true,
+            plugins: {
+                legend: {
+                    position: 'bottom'
+                }
+            }
+        }
+    });
+}
+
+// When page loads → fetch data
 fetchCategoryTotals();
