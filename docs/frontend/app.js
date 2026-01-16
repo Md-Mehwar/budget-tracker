@@ -2,12 +2,14 @@
 // Fetch category data from FastAPI and draw a pie chart.
 
 // Your FastAPI public URL:
-const BASE_URL = "https://congenial-space-chainsaw-7v64r99x9943w67q-8001.app.github.dev";
+const BASE_URL = "https://congenial-space-chainsaw-7v64r99x9943w67q-8001.app.github.dev/api";
+
 
 // Fetch data from FastAPI
 async function fetchCategoryTotals() {
     try {
         const response = await fetch(`${BASE_URL}/stats/by-category?month=2025-12&user_id=1`);
+
         const data = await response.json();
         console.log("Fetched data:", data);
 
