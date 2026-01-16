@@ -1,9 +1,5 @@
-// docs/frontend/app.js
-// Fetch category data from FastAPI and draw a pie chart.
 
-// Your FastAPI public URL:
 const BASE_URL = "https://congenial-space-chainsaw-7v64r99x9943w67q-8001.app.github.dev/api";
-
 
 // Fetch data from FastAPI
 async function fetchCategoryTotals() {
