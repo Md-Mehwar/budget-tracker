@@ -2,9 +2,7 @@
 // Fetch category data from FastAPI and draw a pie chart.
 
 // Your FastAPI public URL:
-const BASE_URL = "https://congenial-space-chainsaw-7v64r99x9943w67q-8001.app.github.dev/api";
-
-
+const BASE_URL = "https://congenial-space-chainsaw-7v64r99x9943w67q-8001.app.github.dev";
 
 // Fetch data from FastAPI
 async function fetchCategoryTotals() {
@@ -13,7 +11,12 @@ async function fetchCategoryTotals() {
         const data = await response.json();
         console.log("Fetched data:", data);
 
-        // Pass data to chart function
+        if (data.length === 0) {
+            document.getElementById("categoryChart").remove(); // remove empty canvas
+            document.body.insertAdjacentHTML('beforeend', "<p>No spending data found for this month.</p>");
+            return;
+        }
+
         drawPieChart(data);
 
     } catch (error) {
