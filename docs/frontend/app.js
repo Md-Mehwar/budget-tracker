@@ -4,6 +4,7 @@
 // Your FastAPI public URL:
 const BASE_URL = "https://congenial-space-chainsaw-7v64r99x9943w67q-8001.app.github.dev";
 
+
 // Fetch data from FastAPI
 async function fetchCategoryTotals() {
     try {
